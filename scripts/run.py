@@ -4,7 +4,7 @@ import unicodecsv as csv
 
 es = Elasticsearch(['http://localhost:9200'])
 
-with open('/home/theofilis/Downloads/oasa_routes/stops.txt', 'rb') as in_file:
+with open('/home/giorgos/Documents/personal/transporty/api/scripts/importer/oasa_routes/stops.txt', 'rb') as in_file:
     data_reader = csv.reader(in_file, delimiter=',', encoding='utf-8')
 
     # stop_id,stop_code,stop_name,stop_desc,stop_lat,stop_lon,location_type
@@ -20,4 +20,4 @@ with open('/home/theofilis/Downloads/oasa_routes/stops.txt', 'rb') as in_file:
             'type': row[6]
         }
 
-        print es.index(index="stops", doc_type='stop', id=row[0], body=stop)
+        print es.index(index="stop", doc_type='stop', id=row[0], body=stop)

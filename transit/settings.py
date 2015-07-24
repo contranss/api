@@ -41,10 +41,14 @@ INSTALLED_APPS = (
     'rest_framework',
     'rest_framework_swagger',
     'import_export',
+    'corsheaders',
     'api',
     'api.driver',
     'api.passenger',
     'api.route',
+    'api.status',
+    'api.advertisment',
+    'api.gamification',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -54,6 +58,8 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 )
 
 ROOT_URLCONF = 'transit.urls'
@@ -69,8 +75,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'transit',
         'USER': 'root',
-        'PASSWORD': 'vfimqbux',
-        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+        'PASSWORD': 'MmJkN2U3MjI3YTcxZjZjYmI4ODJlNmI0',
+        'HOST': '46.101.249.46',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     },
 }
@@ -88,12 +94,13 @@ USE_L10N = True
 
 USE_TZ = True
 
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
-STATIC_URL = os.path.join(BASE_DIR, 'static/')
+STATIC_URL = '/static/'
 
 TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
@@ -101,30 +108,31 @@ TEMPLATE_DIRS = (
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
+       # 'rest_framework.permissions.IsAuthenticated',
     ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.TokenAuthentication',
-        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+        # 'rest_framework.authentication.TokenAuthentication',
+        # 'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     ),
     'DEFAULT_RENDERER_CLASSES': (
-        'rest_framework.renderers.BrowsableAPIRenderer',
+        # 'rest_framework.renderers.BrowsableAPIRenderer',
         'rest_framework.renderers.JSONRenderer',
-        'rest_framework_xml.renderers.XMLRenderer',
     ),
     'DEFAULT_FILTER_BACKENDS': (
         'rest_framework.filters.DjangoFilterBackend',
     ),
-    'PAGINATE_BY': 10,
     'DEFAULT_THROTTLE_CLASSES': (
         'rest_framework.throttling.AnonRateThrottle',
         'rest_framework.throttling.UserRateThrottle'
     ),
     'DEFAULT_THROTTLE_RATES': {
-        'anon': '10/hour',
-        'user': '1000/hour'
-    }
+        'anon': '1000/hour',
+        'user': '10000/hour'
+    },
+    'PAGINATE_BY': 10,
+    'PAGINATE_BY_PARAM': 'size',
+    'MAX_PAGINATE_BY': 100,
 }
 
 JWT_AUTH = {

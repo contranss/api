@@ -16,3 +16,6 @@ class PassengerResource(resources.ModelResource):
 @admin.register(Passenger)
 class PassengerAdmin(ImportExportModelAdmin):
     resource_class = PassengerResource
+    search_fields = ['first_name']
+    list_display = ('user', 'points', 'level')
+

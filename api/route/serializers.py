@@ -72,7 +72,6 @@ class RouteInfoSerializer(serializers.ModelSerializer):
 
 class StopSerializerInfo(serializers.ModelSerializer):
     id = serializers.ReadOnlyField()
-    location_type = serializers.IntegerField()
 
     class Meta:
         model = Stop
